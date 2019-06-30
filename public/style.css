@@ -1,0 +1,73 @@
+#formbx{
+    height: 100%;
+    width: 50%;
+    margin: 0 auto;
+    border: 2px solid black;
+    padding: 5%;
+}
+
+#qone{
+    width: 50%;  
+}
+
+#formcontent{
+z-index: 0;
+}
+
+#quesbx{
+    border: 2px solid black;
+    height: 30%;
+    width: 50%;
+    margin: 0 auto; 
+}
+#objects{
+    margin-top: 5%;
+    padding-left: 5%; 
+}
+
+#emailfinal{
+    display: none;
+}
+
+#txtfinal{
+    display: none;
+}
+
+#radioin{
+    display: none;
+}
+
+#radionm1{
+    display: none;
+}
+
+#plussignrd{
+    display: none;
+}
+
+#checkbxin{
+    display: none;
+}
+
+#checkbxnm1{
+    display: none;
+}
+
+#plussignch{
+    display: none;
+}
+
+/* #chtxtbx{
+    display: none;
+}
+#chemailbx{
+    display: none;
+}
+
+#chradiobtn{
+    display: none;
+}
+
+#chcheckbx{
+    display: none;
+} */

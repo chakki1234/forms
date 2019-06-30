@@ -1,0 +1,111 @@
+<% include ./partials/header.ejs %>
+<div id='formbx'>
+    <div id='formcontent'>
+    <h2>ADD A QUESTION</h2>
+     <input type="text" id="qone">  
+     <i class="fas fa-plus-circle" id="plussign"></i>
+    </div>
+</div>
+
+<div id='quesbx'>
+    <div id="inques" >
+<h3>How would you like your answer to be</h3>
+<input type="radio" name="choice" id="chtxtbx">Text box
+<input type="radio" name="choice" id="chemailbx">Email box
+<input type="radio" name="choice" id="chradiobtn">Radio buttons
+<input type="radio" name="choice" id="chcheckbx">Checkbox
+    </div>
+    <div id='objects' >
+<input type="text" id="txtfinal" placeholder='text' >
+<input type="email"id="emailfinal" placeholder="email">
+<input type="radio" id='radioin'> <input type="text" id="radionm1" placeholder="name for radio btn"><i class="fas fa-plus-circle" id="plussignrd"></i>
+<input type="checkbox" id='checkbxin'><input type="text" id="checkbxnm1" placeholder="name for check box"><i class="fas fa-plus-circle" id="plussignch"></i>
+    </div>
+</div>
+
+<script>
+const addChoices =  document.querySelector(`#plussign`);
+      formContent = document.querySelector(`#formcontent`),
+      chTxtBx = document.querySelector(`#chtxtbx`),
+      chEmailBx = document.querySelector(`#chemailbx`),
+      chRadioBtn = document.querySelector(`#chradiobtn`),
+      chCheckBx = document.querySelector(`#chcheckbx`),
+      txtFinal = document.querySelector('#txtfinal'),
+      emailFinal = document.querySelector('#emailfinal'),
+      radioIn = document.querySelector('#radioin'),
+      radioNm1 = document.querySelector('#radionm1'),
+      plusSignRd = document.querySelector('#plussignrd'),
+      checkBxIn = document.querySelector('#checkbxin'),
+      checkBxNm1 = document.querySelector('#checkbxnm1'),
+      plusSignCh = document.querySelector('#plussignch'),
+      objects = document.querySelector(`#objects`);
+      
+
+
+
+
+addChoices.addEventListener(`click`, ()=>{
+    formContent.style.display = ` none `; 
+})
+
+formContent.addEventListener(`click`, ()=>{
+    
+});
+
+chTxtBx.addEventListener(`click`, ()=>{
+
+    emailFinal.style.display = `none`;
+    radioIn.style.display = `none`;
+    radioNm1.style.display = `none`;
+    plusSignRd.style.display = `none`;
+    checkBxIn.style.display = `none`;
+    checkBxNm1.style.display = `none`;
+    plusSignCh.style.display = `none`;
+    txtFinal.style.display = `inline`;
+});
+
+chEmailBx.addEventListener(`click`, ()=>{
+  
+    radioIn.style.display = `none`;
+    radioNm1.style.display = `none`;
+    plusSignRd.style.display = `none`;
+    checkBxIn.style.display = `none`;
+    checkBxNm1.style.display = `none`;
+    plusSignCh.style.display = `none`;
+    txtFinal.style.display = `none`;
+    emailFinal.style.display = `inline`;
+});
+
+chRadioBtn.addEventListener(`click`, ()=>{
+
+    checkBxIn.style.display = `none`;
+    checkBxNm1.style.display = `none`;
+    plusSignCh.style.display = `none`;
+    txtFinal.style.display = `none`;
+    emailFinal.style.display = `none`;
+    radioIn.style.display = `inline-block`;
+    radioNm1.style.display = `inline-block`;
+    plusSignRd.style.display = `inline`;
+});
+
+chCheckBx.addEventListener(`click`, ()=>{
+
+    txtFinal.style.display = `none`;
+    emailFinal.style.display = `none`;
+    radioIn.style.display = `none`;
+    radioNm1.style.display = `none`;
+    plusSignRd.style.display = `none`;
+    checkBxIn.style.display = `inline-block`;
+    checkBxNm1.style.display = `inline-block`;
+    plusSignCh.style.display = `inline`;
+});
+
+plusSignRd.addEventListener(`click`, ()=>{
+     
+    console.log(objects.innerHTML);
+    objects.innerHTML += `<h1>hi</h1>`;   
+});
+ 
+</script>
+
+<% include ./partials/footer.ejs %> 
