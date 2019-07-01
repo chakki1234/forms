@@ -6,17 +6,17 @@
     padding: 5%;
 }
 
-#qone{
-    width: 50%;  
-}
-
 #formcontent{
 z-index: 0;
 }
 
+.numhead{
+    font-size: 2rem;
+}
+
 #quesbx{
     border: 2px solid black;
-    height: 30%;
+    padding-bottom: 1%;
     width: 50%;
     margin: 0 auto; 
 }
@@ -33,7 +33,7 @@ z-index: 0;
     display: none;
 }
 
-#radioin{
+#radioin1{
     display: none;
 }
 
@@ -45,7 +45,7 @@ z-index: 0;
     display: none;
 }
 
-#checkbxin{
+#checkbxin1{
     display: none;
 }
 
@@ -54,6 +54,10 @@ z-index: 0;
 }
 
 #plussignch{
+    display: none;
+}
+
+#randd{
     display: none;
 }
 
