@@ -1,13 +1,14 @@
 <% include ./partials/header.ejs %>
 
+<div style='display: none'>
+<%-content[0].fcontent%>
+</div>
+
 <table class="table">
         <thead class="thead-dark">
-            <tr>
-
-<% for(let i=1;i<=qNo;++i) { %>
-      <th scope="col">q<%=i%></th>                          
-<% } %>
+<tr id='headrow' >
 </tr>
+
 </thead>
 <tbody>
 
@@ -20,5 +21,23 @@
 <% } %>
       </tbody>
     </table>
+
+<a href="/dashboard">dashboard</a>
+<a href="/logout">logout</a>
+
+<script>
+let qnm = [],
+     headRow = document.querySelector(`#headrow`),
+     htline='',
+     idline;   
+  
+for(let i=1;i<=<%=qNo%>;++i){
+    idline = document.querySelector(`#qnum${i}p`).textContent;
+    console.log(idline);
+   htline += `<th scope="col">${idline}</th>` ;      
+  if(i==<%=qNo%>)
+   headRow.insertAdjacentHTML(`afterbegin`, `${htline}`);
+}
+</script>
 
 <% include ./partials/footer.ejs %>

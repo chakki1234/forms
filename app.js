@@ -36,7 +36,7 @@ app.get("/", (req, res)=>{
         //    connection.query(`CREATE TABLE demo4(id INT, email VARCHAR(255), password VARCHAR(255), forms INT, formtxt TEXT,  UNIQUE(ID), UNIQUE(email))`, (err)=>{
         //    console.log(err);
         //    });
-        // connection.query(`CREATE TABLE demo5( userid INT, email VARCHAR(255), fno INT, fcontent TEXT , qno INT, databasenm VARCHAR(255))`);
+        // connection.query(`CREATE TABLE demo5( userid INT, email VARCHAR(255), fno INT, fcontent TEXT , qno INT, databasenm VARCHAR(255), title VARCHAR(255), description VARCHAR(255))`);
         // connection.query(`CREATE TABLE demo6()`)
         // connection.query(`DELETE FROM demo5`);
         let title = `Signup`;
@@ -107,7 +107,6 @@ res.render(`form.ejs`, { title: title , user: result });
 });
 
 app.post(`/postfmcont`, (req, res)=>{
-console.log(req.body);
 connection.query(`UPDATE demo4 SET forms = forms + 1 WHERE email = '${req.session.email}'`);
 connection.query(`SELECT * FROM demo4 WHERE email = '${req.session.email}'`, (err, result)=>{
 let demo5obj = {
@@ -116,7 +115,9 @@ let demo5obj = {
     fcontent: req.body.data,
     fno : result[0].forms-1,
     qno : req.body.questionno,
-    databasenm : req.body.databasename
+    databasenm : req.body.databasename,
+    title: req.body.title,
+    description: req.body.description
 };
 connection.query(`INSERT INTO demo5 SET ?`, demo5obj, (err)=>{
 let qury = `CREATE TABLE ${req.body.databasename}(`;
@@ -127,8 +128,11 @@ let qury = `CREATE TABLE ${req.body.databasename}(`;
          else
          qury+=`)`;
         }
-console.log(qury);
-connection.query(qury);
+// console.log(qury);
+connection.query(qury, (err)=>{
+    if(err)
+    console.log(err);
+});
 });
 });
 });
@@ -143,7 +147,6 @@ res.render(`mntemp.ejs`, { title: title, result: result });
 
 app.post(`/postformres/:dbnm`, (req, res)=>{
     connection.query(`INSERT INTO ${req.params.dbnm} SET ?`, req.body);
-    console.log(req.body);
     res.send('got it');
 });
 
@@ -154,11 +157,12 @@ res.render(`viewres.ejs`, { title: title, result: result });
 });
 });
 
-app.get(`/finalres/:dbnm/:qno`, (req, res)=>{
+app.get(`/finalres/:dbnm/:qno/:fno`, (req, res)=>{
 connection.query(`SELECT * FROM ${req.params.dbnm}`, (err, result)=>{
+connection.query(`SELECT fcontent FROM demo5 WHERE email = '${req.session.email}' and fno = ${req.params.fno}`,(err, content)=>{
 let title = `response`;
-console.log(result);
-res.render(`response.ejs`, { title: title, result: result, qNo: req.params.qno });
+res.render(`response.ejs`, { title: title, result: result, qNo: req.params.qno, fNo : req.params.fno, content: content });
+});
 });
 });
 

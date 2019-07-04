@@ -1,7 +1,12 @@
 <% include ./partials/header.ejs %>
 
+<%if(result.length==0){%>
+    <h1>Nothing to display</h1>
+<%} else {%>
 <% for( i=0;i<result.length;++i) { %>
-<a href="finalres/<%=result[i].databasenm%>/<%=result[i].qno%>">form<%=i%></a>      
+<a href="finalres/<%=result[i].databasenm%>/<%=result[i].qno%>/<%=result[i].fno%>"><%=result[i].title%></a>      
 <% } %>   
-
+<% } %>
+<a href="/dashboard">dashboard</a>
+<a href="/logout">logout</a>
 <% include ./partials/footer.ejs %>

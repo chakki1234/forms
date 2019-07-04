@@ -1,5 +1,7 @@
 <% include ./partials/header.ejs %>
 <h1>FORM</h1>
+<a href="/dashboard">dashboard</a>
+<a href="/logout">logout</a>
 <div id='formbx'>
     <input type="text" id='titlein' placeholder='title'><br>
     <input type="text" id='descriptionin' placeholder='description'><br>
@@ -58,6 +60,9 @@ var radiooptcount = 1,
     checkbxoptcount = 1,
     valueChoosen,
     questionNumber = 1; 
+    
+let titledes;
+
 
 function handleRequest(){
     if(this.readyState==4 && this.status==200){
@@ -72,15 +77,16 @@ request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 titleIn.addEventListener(`keydown`, (event)=>{
 if(event.which==13){
-titleIn.style.display = `none`;    
-formBx.insertAdjacentHTML(`afterbegin`,`<h1>Title: ${titleIn.value}</h1>`)
+titledes = `<h1>TITLE: ${titleIn.value}</h1>`;
 }
 });
 
 descriptionIn.addEventListener(`keydown`, (event)=>{
 if(event.which==13){
+titledes += `<h1>DESCRIPTION : ${descriptionIn.value}</h1>` 
+titleIn.style.display = `none`;    
 descriptionIn.style.display = `none`;
-formContent.insertAdjacentHTML(`beforebegin`, `<h1>Description: ${descriptionIn.value}`);
+formContent.insertAdjacentHTML(`afterbegin`,titledes);
 }
 });
 
@@ -157,7 +163,7 @@ submitBtn.addEventListener(`click`, ()=>{
       document.querySelector(`#done${questionNumber}`).style.display = `none`;
       formContent.insertAdjacentHTML(`beforeend`, `<button type='submit' id='subbtnfinallocal' style='display: block'>You sure</button>`);
       document.querySelector(`#subbtnfinallocal`).addEventListener('click', ()=>{
-      request.send(`data=${formContent.innerHTML}&questionno=${questionNumber}&databasename=form<%=user[0].id%><%=user[0].forms%>`);
+      request.send(`data=${formContent.innerHTML}&questionno=${questionNumber}&databasename=form<%=user[0].id%><%=user[0].forms%>&title=${titleIn.value}&description=${descriptionIn.value}`);
       formContent.insertAdjacentHTML('afterend', `<h1>The Url is /<%=user[0].id%>/<%=user[0].forms%>/form</h1>`);
       });
      });
@@ -176,7 +182,7 @@ submitBtn.addEventListener(`click`, ()=>{
         document.querySelector(`#done${questionNumber}`).style.display = `none`;
         formContent.insertAdjacentHTML(`beforeend`, `<button type='submit' id='subbtnfinallocal' style='display: block'>You sure</button>`);
         document.querySelector(`#subbtnfinallocal`).addEventListener('click', ()=>{
-        request.send(`data=${formContent.innerHTML}&questionno=${questionNumber}&databasename=form<%=user[0].id%><%=user[0].forms%>`);
+        request.send(`data=${formContent.innerHTML}&questionno=${questionNumber}&databasename=form<%=user[0].id%><%=user[0].forms%>&title=${titleIn.value}&description=${descriptionIn.value}`);
         formContent.insertAdjacentHTML('afterend', `<h1>The Url is /<%=user[0].id%>/<%=user[0].forms%>/form</h1>`);
     });
         });
@@ -207,7 +213,7 @@ submitBtn.addEventListener(`click`, ()=>{
     document.querySelector(`#done${questionNumber}`).style.display = `none`;
     formContent.insertAdjacentHTML(`beforeend`, `<button type='submit' id='subbtnfinallocal' style='display: block'>You Sure</button>`);
     document.querySelector(`#subbtnfinallocal`).addEventListener('click', ()=>{
-     request.send(`data=${formContent.innerHTML}&questionno=${questionNumber}&databasename=form<%=user[0].id%><%=user[0].forms%>`);
+    request.send(`data=${formContent.innerHTML}&questionno=${questionNumber}&databasename=form<%=user[0].id%><%=user[0].forms%>&title=${titleIn.value}&description=${descriptionIn.value}`);
     formContent.insertAdjacentHTML('afterend', `<h1>The Url is /<%=user[0].id%>/<%=user[0].forms%>/form</h1>`);
     });
    });
@@ -239,7 +245,7 @@ submitBtn.addEventListener(`click`, ()=>{
     document.querySelector(`#done${questionNumber}`).style.display = `none`;
     formContent.insertAdjacentHTML(`beforeend`, `<button type='submit' id='subbtnfinallocal' style='display: block'>You sure</button>`);
     document.querySelector(`#subbtnfinallocal`).addEventListener('click', ()=>{
-    request.send(`data=${formContent.innerHTML}&questionno=${questionNumber}&databasename=form<%=user[0].id%><%=user[0].forms%>`);
+    request.send(`data=${formContent.innerHTML}&questionno=${questionNumber}&databasename=form<%=user[0].id%><%=user[0].forms%>&title=${titleIn.value}&description=${descriptionIn.value}`);
     formContent.insertAdjacentHTML('afterend', `<h1>The Url is /<%=user[0].id%>/<%=user[0].forms%>/form</h1>`);
     });
     });
@@ -259,7 +265,7 @@ this.qDom = document.querySelector(`#qnum${questionNumber}`);
 qDom.addEventListener(`keydown`, (event)=>{
     if(event.which==13)
 {
-    formContent.insertAdjacentHTML(`beforeend`, `<span>${qDom.value}</span>`);
+    formContent.insertAdjacentHTML(`beforeend`, `<span id='qnum${questionNumber}p'>${qDom.value}</span>`);
     qDom.style.display = `none`;
     formContent.style.display = `none`;
     quesBx.style.display = `block`;
@@ -270,7 +276,7 @@ qDom.addEventListener(`keydown`, (event)=>{
 qNum1.addEventListener(`keydown`, (event)=>{
 if(event.which==13)
 {
-   formContent.insertAdjacentHTML(`beforeend`, `<span>${qNum1.value}</span>`);
+   formContent.insertAdjacentHTML(`beforeend`, `<span id='qnum${questionNumber}p'>${qNum1.value}</span>`);
     qNum1.style.display = `none`;
     formContent.style.display = `none`;
     quesBx.style.display = `block`;
