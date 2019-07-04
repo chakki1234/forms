@@ -1,7 +1,10 @@
 <% include ./partials/header.ejs %>
+<h1>FORM</h1>
 <div id='formbx'>
-    <span>ADD A QUESTION</span> <i class="fas fa-plus-circle" id="plussign"></i>
+    <input type="text" id='titlein' placeholder='title'><br>
+    <input type="text" id='descriptionin' placeholder='description'><br>
     <div id='formcontent'>
+        <span id='addques'>ADD A QUESTION</span><i class="fas fa-plus-circle" id="plussign"></i><br>
         <span class="numhead">1</span><input type="text" id="qnum1">  
     </div>
 </div>
@@ -16,6 +19,7 @@
 <button id='submitbtn'>Submit</button>
     </div>
     <div id='objects' >
+<h3 id='prompt'>this one right</h3>
 <input type="text" id="txtfinal" placeholder='text' >
 <input type="number"id="emailfinal" placeholder="Number">
 <input type="radio" id='radioin1' name='optchrd'> <input type="text" id="radionm1" placeholder="enter opt name"><i class="fas fa-plus-circle" id="plussignrd"></i>
@@ -25,7 +29,8 @@
 </div>
 
 <script>
-const formContent = document.querySelector(`#formcontent`),
+const formBx = document.querySelector(`#formbx`);
+      formContent = document.querySelector(`#formcontent`),
       chTxtBx = document.querySelector(`#chtxtbx`),
       chEmailBx = document.querySelector(`#chemailbx`),
       chRadioBtn = document.querySelector(`#chradiobtn`),
@@ -42,15 +47,45 @@ const formContent = document.querySelector(`#formcontent`),
       submitBtn = document.querySelector(`#submitbtn`),
       rAndD = document.querySelector(`#randd`),
       plusSign = document.querySelector(`#plussign`),
-      qNum1 = document.querySelector(`#qnum1`);
+      qNum1 = document.querySelector(`#qnum1`),
+      titleIn = document.querySelector('#titlein'),
+      descriptionIn = document.querySelector(`#descriptionin`),
+      quesBx = document.querySelector(`#quesbx`),
+      prompt = document.querySelector(`#prompt`),
+      addQues = document.querySelector(`#addques`);
 
 var radiooptcount = 1,
     checkbxoptcount = 1,
     valueChoosen,
-    questionNumber = 1;   
+    questionNumber = 1; 
+
+function handleRequest(){
+    if(this.readyState==4 && this.status==200){
+        console.log('data-saved');
+    }
+}
+let request = new XMLHttpRequest();
+request.onreadystatechange  =  handleRequest;
+request.open(`POST`, `/postfmcont`, true);
+request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+
+titleIn.addEventListener(`keydown`, (event)=>{
+if(event.which==13){
+titleIn.style.display = `none`;    
+formBx.insertAdjacentHTML(`afterbegin`,`<h1>Title: ${titleIn.value}</h1>`)
+}
+});
+
+descriptionIn.addEventListener(`keydown`, (event)=>{
+if(event.which==13){
+descriptionIn.style.display = `none`;
+formContent.insertAdjacentHTML(`beforebegin`, `<h1>Description: ${descriptionIn.value}`);
+}
+});
 
 chTxtBx.addEventListener(`click`, ()=>{
-
+    prompt.style.display = 'block';
     emailFinal.style.display = `none`;
     radioIn.style.display = `none`;
     radioNm1.style.display = `none`;
@@ -63,7 +98,7 @@ chTxtBx.addEventListener(`click`, ()=>{
 });
 
 chEmailBx.addEventListener(`click`, ()=>{
-  
+    prompt.style.display = 'block';
     radioIn.style.display = `none`;
     radioNm1.style.display = `none`;
     plusSignRd.style.display = `none`;
@@ -76,7 +111,7 @@ chEmailBx.addEventListener(`click`, ()=>{
 });
 
 chRadioBtn.addEventListener(`click`, ()=>{
-
+    prompt.style.display = 'block';
     checkBxIn.style.display = `none`;
     checkBxNm1.style.display = `none`;
     plusSignCh.style.display = `none`;
@@ -89,7 +124,7 @@ chRadioBtn.addEventListener(`click`, ()=>{
 });
 
 chCheckBx.addEventListener(`click`, ()=>{
-
+    prompt.style.display = 'block';
     txtFinal.style.display = `none`;
     emailFinal.style.display = `none`;
     radioIn.style.display = `none`;
@@ -114,18 +149,47 @@ plusSignCh.addEventListener(`click`, ()=>{
 submitBtn.addEventListener(`click`, ()=>{
     
     if(valueChoosen==1){
-     formContent.insertAdjacentHTML(`beforeend`, `<br><input type="text" name='txt${questionNumber}' placeholder='text' >`);
+      let qreq = document.querySelector(`#qNum${questionNumber}`);
+      formContent.insertAdjacentHTML(`beforeend`, `<br><input type="text" name='q${questionNumber}' placeholder='text' ><button id='done${questionNumber}' style='display: block' >Are you done</button>`);
+      document.querySelector(`#done${questionNumber}`).addEventListener(`click`, ()=>{
+      addQues.style.display = `none`;
+      plusSign.style.display = `none`;
+      document.querySelector(`#done${questionNumber}`).style.display = `none`;
+      formContent.insertAdjacentHTML(`beforeend`, `<button type='submit' id='subbtnfinallocal' style='display: block'>You sure</button>`);
+      document.querySelector(`#subbtnfinallocal`).addEventListener('click', ()=>{
+      request.send(`data=${formContent.innerHTML}&questionno=${questionNumber}&databasename=form<%=user[0].id%><%=user[0].forms%>`);
+      formContent.insertAdjacentHTML('afterend', `<h1>The Url is /<%=user[0].id%>/<%=user[0].forms%>/form</h1>`);
+      });
+     });
      txtFinal.style.display = `none`;
+     quesBx.style.display = `none`;
+     prompt.style.display = 'none';
+     formContent.style.display = `block`;
     }
     
     if(valueChoosen==2){
-        formContent.insertAdjacentHTML(`beforeend`,`<br><input type="number" name='num${questionNumber}' placeholder="Number">`);
+        let qreq = document.querySelector(`#qNum${questionNumber}`);
+        formContent.insertAdjacentHTML(`beforeend`,`<br><input type="number" name='q${questionNumber}' placeholder="Number"><button id='done${questionNumber}' style='display: block' >Are you done</button>`);
+        document.querySelector(`#done${questionNumber}`).addEventListener(`click`, ()=>{
+        addQues.style.display = `none`;
+        plusSign.style.display = `none`;
+        document.querySelector(`#done${questionNumber}`).style.display = `none`;
+        formContent.insertAdjacentHTML(`beforeend`, `<button type='submit' id='subbtnfinallocal' style='display: block'>You sure</button>`);
+        document.querySelector(`#subbtnfinallocal`).addEventListener('click', ()=>{
+        request.send(`data=${formContent.innerHTML}&questionno=${questionNumber}&databasename=form<%=user[0].id%><%=user[0].forms%>`);
+        formContent.insertAdjacentHTML('afterend', `<h1>The Url is /<%=user[0].id%>/<%=user[0].forms%>/form</h1>`);
+    });
+        });
         emailFinal.style.display = `none`;
+        quesBx.style.display = `none`;
+        formContent.style.display = `block`;
+        prompt.style.display = 'none';
     }
 
     if(valueChoosen==3){
         var optnm='';
-        rAndD.insertAdjacentHTML(`beforeend`,`<input type='radio' name='optchrd${questionNumber}' value='${radioNm1.value}'><span>${radioNm1.value}</span><br>`); 
+        let qreq = document.querySelector(`#qNum${questionNumber}`);
+        rAndD.insertAdjacentHTML(`beforeend`,`<input type='radio' name='q${questionNumber}' value='${radioNm1.value}'><span>${radioNm1.value}</span><br>`); 
         radioIn.style.display = `none`;
         radioNm1.style.display = `none`;
         plusSignRd.style.display = `none`;
@@ -134,16 +198,30 @@ submitBtn.addEventListener(`click`, ()=>{
              document.querySelector(`#radioin${questionNumber}${i}`).style.display = `none`;
              document.querySelector(`#radionm${questionNumber}${i}`).style.display = `none`;
              document.querySelector(`.br${questionNumber}${i}`).style.display = `none`;
-            rAndD.insertAdjacentHTML(`beforeend`, `<input type='radio' name='optchrd${questionNumber}' value='${optnm}'><span>${optnm}</span><br>`)
+            rAndD.insertAdjacentHTML(`beforeend`, `<input type='radio' name='q${questionNumber}' value='${optnm}'><span>${optnm}</span><br>`)
         }
-    formContent.insertAdjacentHTML(`beforeend`, `<br>${rAndD.innerHTML}`);
+    formContent.insertAdjacentHTML(`beforeend`, `<br>${rAndD.innerHTML}<button id='done${questionNumber}' style='display: block' >Are you done</button>`);
+    document.querySelector(`#done${questionNumber}`).addEventListener(`click`, ()=>{
+    addQues.style.display = `none`;
+    plusSign.style.display = `none`;
+    document.querySelector(`#done${questionNumber}`).style.display = `none`;
+    formContent.insertAdjacentHTML(`beforeend`, `<button type='submit' id='subbtnfinallocal' style='display: block'>You Sure</button>`);
+    document.querySelector(`#subbtnfinallocal`).addEventListener('click', ()=>{
+     request.send(`data=${formContent.innerHTML}&questionno=${questionNumber}&databasename=form<%=user[0].id%><%=user[0].forms%>`);
+    formContent.insertAdjacentHTML('afterend', `<h1>The Url is /<%=user[0].id%>/<%=user[0].forms%>/form</h1>`);
+    });
+   });
     rAndD.innerHTML = '';
     radiooptcount = 1;
+    quesBx.style.display = `none`;
+    formContent.style.display = `block`;
+    prompt.style.display = 'none';
    }
     
     if(valueChoosen==4){
         var optnm
-        rAndD.insertAdjacentHTML(`beforeend`, `<input type='checkbox' name='optchchbx${questionNumber}' value='${checkBxNm1.value}'><span>${checkBxNm1.value}</span><br>`)
+        let qreq = document.querySelector(`#qNum${questionNumber}`);
+        rAndD.insertAdjacentHTML(`beforeend`, `<input type='checkbox' name='q${questionNumber}' value='${checkBxNm1.value}'><span>${checkBxNm1.value}</span><br>`)
         checkBxIn.style.display = `none`;
         checkBxNm1.style.display = `none`;
         plusSignCh.style.display = `none`;
@@ -152,15 +230,29 @@ submitBtn.addEventListener(`click`, ()=>{
              document.querySelector(`#checkbxin${questionNumber}${j}`).style.display = `none`;
              document.querySelector(`#checkbxnm${questionNumber}${j}`).style.display = `none`;
              document.querySelector(`.br${questionNumber}${j}`).style.display = `none`;
-            rAndD.insertAdjacentHTML(`beforeend`, `<input type='checkbox' name='optchchbx${questionNumber}' value='${optnm}'><span>${optnm}</span><br>`)
+            rAndD.insertAdjacentHTML(`beforeend`, `<input type='checkbox' name='q${questionNumber}' value='${optnm}'><span>${optnm}</span><br>`)
         }
-    formContent.insertAdjacentHTML(`beforeend`, `<br>${rAndD.innerHTML}`);
+    formContent.insertAdjacentHTML(`beforeend`, `<br>${rAndD.innerHTML}<button id='done${questionNumber}' style='display: block' >Are you done</button>`);
+    document.querySelector(`#done${questionNumber}`).addEventListener(`click`, ()=>{
+    addQues.style.display = `none`;
+    plusSign.style.display = `none`;
+    document.querySelector(`#done${questionNumber}`).style.display = `none`;
+    formContent.insertAdjacentHTML(`beforeend`, `<button type='submit' id='subbtnfinallocal' style='display: block'>You sure</button>`);
+    document.querySelector(`#subbtnfinallocal`).addEventListener('click', ()=>{
+    request.send(`data=${formContent.innerHTML}&questionno=${questionNumber}&databasename=form<%=user[0].id%><%=user[0].forms%>`);
+    formContent.insertAdjacentHTML('afterend', `<h1>The Url is /<%=user[0].id%>/<%=user[0].forms%>/form</h1>`);
+    });
+    });
     rAndD.innerHTML = '';
     checkbxoptcount = 1;
-     }
+    quesBx.style.display = `none`;
+    formContent.style.display = `block`;
+    prompt.style.display = 'none';
+    }
 });
 
 plusSign.addEventListener(`click`, ()=>{
+document.querySelector(`#done${questionNumber}`).style.display = `none`;
 questionNumber+=1;
 formContent.insertAdjacentHTML(`beforeend`, `<br><span class='numhead'>${questionNumber}</span><input type='text' id='qnum${questionNumber}'>`);
 this.qDom = document.querySelector(`#qnum${questionNumber}`);
@@ -169,15 +261,19 @@ qDom.addEventListener(`keydown`, (event)=>{
 {
     formContent.insertAdjacentHTML(`beforeend`, `<span>${qDom.value}</span>`);
     qDom.style.display = `none`;
-}
+    formContent.style.display = `none`;
+    quesBx.style.display = `block`;
+    }
 });
 });
 
 qNum1.addEventListener(`keydown`, (event)=>{
 if(event.which==13)
 {
-    formContent.insertAdjacentHTML(`beforeend`, `<span>${qNum1.value}</span>`);
+   formContent.insertAdjacentHTML(`beforeend`, `<span>${qNum1.value}</span>`);
     qNum1.style.display = `none`;
+    formContent.style.display = `none`;
+    quesBx.style.display = `block`;
 }
 });
 </script>

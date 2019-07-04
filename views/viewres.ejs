@@ -1,0 +1,7 @@
+<% include ./partials/header.ejs %>
+
+<% for( i=0;i<result.length;++i) { %>
+<a href="finalres/<%=result[i].databasenm%>/<%=result[i].qno%>">form<%=i%></a>      
+<% } %>   
+
+<% include ./partials/footer.ejs %>

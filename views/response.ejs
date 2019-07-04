@@ -1,0 +1,24 @@
+<% include ./partials/header.ejs %>
+
+<table class="table">
+        <thead class="thead-dark">
+            <tr>
+
+<% for(let i=1;i<=qNo;++i) { %>
+      <th scope="col">q<%=i%></th>                          
+<% } %>
+</tr>
+</thead>
+<tbody>
+
+<% for(let i=0;i<result.length;++i) {%>  
+        <tr>
+<% for(let j=1;j<=qNo;++j) { %>
+        <td><%=result[i][`q${j}`]%></td>
+    <% } %>    
+  </tr>
+<% } %>
+      </tbody>
+    </table>
+
+<% include ./partials/footer.ejs %>
