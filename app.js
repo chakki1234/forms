@@ -150,7 +150,7 @@ app.post(`/postformres/:dbnm`, (req, res)=>{
     res.send('got it');
 });
 
-app.get(`/view`, (req, res)=>{
+app.get(`/view`, loggedin, (req, res)=>{
 connection.query(`SELECT * FROM demo5 WHERE email = '${req.session.email}'`, (err, result)=>{
 let title = 'view';
 res.render(`viewres.ejs`, { title: title, result: result });
