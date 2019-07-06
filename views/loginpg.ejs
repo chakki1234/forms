@@ -1,10 +1,17 @@
 <% include ./partials/header.ejs %>
-<h1>Login</h1>
-<form action="/login" method='POST'>
-<label for="emailuser">email</label>
-<input type="email" id="emailuser" placeholder="Email ID" name="email">
-<label id="passworduser">Password</label>
-<input type="password" id="passworduser" placeholder="Password" name="password">
-<button>SUBMIT</button>
-</form>
+
+<div class="d-flex flex-row justify-content-center align-items-center border border-dark positionbx">
+    </div>
+    <div id='signuppg' class='d-flex flex-column justify-content-around pl-3'>
+        <h1>LOGIN </h1>
+        <form action="/login" method='POST' class="d-flex flex-column ">
+    <label for="emailuser">Email ID</label>
+    <input type="email" id="emailuser" placeholder="Email ID" name="email">
+    <label id="passworduser">Password</label>
+    <input type="password" id="passworduser" placeholder="Password" name="password">
+    <button id='submitbtnsiup' class=" btn btn-danger mt-3" >SUBMIT</button>
+        </form>
+    </div>
+
 <% include ./partials/footer.ejs %>
+

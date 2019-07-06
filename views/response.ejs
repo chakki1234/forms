@@ -1,10 +1,10 @@
-<% include ./partials/header.ejs %>
+<% include ./partials/headernav.ejs %>
 
 <div style='display: none'>
 <%-content[0].fcontent%>
 </div>
 
-<table class="table">
+<table class="table container mt-5">
         <thead class="thead-dark">
 <tr id='headrow' >
 </tr>
@@ -13,7 +13,7 @@
 <tbody>
 
 <% for(let i=0;i<result.length;++i) {%>  
-        <tr>
+        <tr style="background-color: white;" >
 <% for(let j=1;j<=qNo;++j) { %>
         <td><%=result[i][`q${j}`]%></td>
     <% } %>    
@@ -21,9 +21,6 @@
 <% } %>
       </tbody>
     </table>
-
-<a href="/dashboard">dashboard</a>
-<a href="/logout">logout</a>
 
 <script>
 let qnm = [],

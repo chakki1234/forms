@@ -1,10 +1,10 @@
 <% include ./partials/header.ejs %>
 
-<div id='content'>
-    <form action="/postformres/<%=result[0].databasenm%>" method='POST'>
+<div id='content' style="border: 2px solid black; background-color: blanchedalmond;padding: 2%"  >
+    <form action="/postformres/<%=result[0].databasenm%>" method='POST' >
     <%-result[0].fcontent%>
     </form>
 </div>
 
 
-<% include ./partials/header.ejs %>
+<% include ./partials/footer.ejs %>

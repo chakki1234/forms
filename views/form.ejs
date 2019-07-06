@@ -1,27 +1,25 @@
-<% include ./partials/header.ejs %>
-<h1>FORM</h1>
-<a href="/dashboard">dashboard</a>
-<a href="/logout">logout</a>
-<div id='formbx'>
-    <input type="text" id='titlein' placeholder='title'><br>
-    <input type="text" id='descriptionin' placeholder='description'><br>
-    <div id='formcontent'>
-        <span id='addques'>ADD A QUESTION</span><i class="fas fa-plus-circle" id="plussign"></i><br>
-        <span class="numhead">1</span><input type="text" id="qnum1">  
+<% include ./partials/headernav.ejs %>
+
+<div id='formbx' style='width: 50%; margin: 2% auto; border: 3px solid black ; padding: 5%; border-radius: 10px; background-color: #e3f2fd;'>
+    <input type="text" style='border: 2px solid #46accf; border-radius: 10px; margin:1% 0%;' id='titlein' placeholder='Title'><br>
+    <input type="text" style='border: 2px solid #46accf; border-radius: 10px;' id='descriptionin' placeholder='Description'>
+    <div id='formcontent' style="margin: 1.5%; color:#46accf ">
+        <span id='addques' class="btn btn-danger" style='border-radius:10px'>Add a Question</span> <i  class="fas fa-plus-circle" id="plussign"></i><br>
+        <span class="numhead">1</span><input style='margin: 2%; border: 2px solid #46accf; border-radius: 10px;' placeholder="question 1" type="text" id="qnum1">  
     </div>
 </div>
 
-<div id='quesbx'>
+<div id='quesbx' style="border-radius: 10px">
     <div id="inques" >
-<h3>How would you like your answer to be</h3>
+<h3>How would you like your answer to be:</h3>
 <input type="radio" name="choice" id="chtxtbx">Text box
 <input type="radio" name="choice" id="chemailbx">Number
 <input type="radio" name="choice" id="chradiobtn">Radio buttons
 <input type="radio" name="choice" id="chcheckbx">Checkbox
-<button id='submitbtn'>Submit</button>
+<button id='submitbtn' class="btn btn-danger ml-1" >Submit</button>
     </div>
     <div id='objects' >
-<h3 id='prompt'>this one right</h3>
+<h3 id='prompt'>This is how its gonna look</h3>
 <input type="text" id="txtfinal" placeholder='text' >
 <input type="number"id="emailfinal" placeholder="Number">
 <input type="radio" id='radioin1' name='optchrd'> <input type="text" id="radionm1" placeholder="enter opt name"><i class="fas fa-plus-circle" id="plussignrd"></i>
@@ -77,13 +75,13 @@ request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 titleIn.addEventListener(`keydown`, (event)=>{
 if(event.which==13){
-titledes = `<h1>TITLE: ${titleIn.value}</h1>`;
+titledes = `<h3>Title: ${titleIn.value}</h3>`;
 }
 });
 
 descriptionIn.addEventListener(`keydown`, (event)=>{
 if(event.which==13){
-titledes += `<h1>DESCRIPTION : ${descriptionIn.value}</h1>` 
+titledes += `<h3>Description: ${descriptionIn.value}</h3>` 
 titleIn.style.display = `none`;    
 descriptionIn.style.display = `none`;
 formContent.insertAdjacentHTML(`afterbegin`,titledes);
@@ -156,15 +154,15 @@ submitBtn.addEventListener(`click`, ()=>{
     
     if(valueChoosen==1){
       let qreq = document.querySelector(`#qNum${questionNumber}`);
-      formContent.insertAdjacentHTML(`beforeend`, `<br><input type="text" name='q${questionNumber}' placeholder='text' ><button id='done${questionNumber}' style='display: block' >Are you done</button>`);
+      formContent.insertAdjacentHTML(`beforeend`, `<br><input type="text" style='margin: 2%; border: 2px solid #46accf; border-radius: 10px;'  name='q${questionNumber}' placeholder='text' ><button id='done${questionNumber}' class='btn btn-danger' style='display: block' >Are you done</button>`);
       document.querySelector(`#done${questionNumber}`).addEventListener(`click`, ()=>{
       addQues.style.display = `none`;
       plusSign.style.display = `none`;
       document.querySelector(`#done${questionNumber}`).style.display = `none`;
-      formContent.insertAdjacentHTML(`beforeend`, `<button type='submit' id='subbtnfinallocal' style='display: block'>You sure</button>`);
+      formContent.insertAdjacentHTML(`beforeend`, `<button type='submit' id='subbtnfinallocal' style='display: block;' class='btn btn-danger' >You sure</button>`);
       document.querySelector(`#subbtnfinallocal`).addEventListener('click', ()=>{
       request.send(`data=${formContent.innerHTML}&questionno=${questionNumber}&databasename=form<%=user[0].id%><%=user[0].forms%>&title=${titleIn.value}&description=${descriptionIn.value}`);
-      formContent.insertAdjacentHTML('afterend', `<h1>The Url is /<%=user[0].id%>/<%=user[0].forms%>/form</h1>`);
+      formContent.insertAdjacentHTML('afterend', `<h1  style='color: #46accf;'>The Url is localhost:3000/<%=user[0].id%>/<%=user[0].forms%>/form</h1>`);
       });
      });
      txtFinal.style.display = `none`;
@@ -175,15 +173,15 @@ submitBtn.addEventListener(`click`, ()=>{
     
     if(valueChoosen==2){
         let qreq = document.querySelector(`#qNum${questionNumber}`);
-        formContent.insertAdjacentHTML(`beforeend`,`<br><input type="number" name='q${questionNumber}' placeholder="Number"><button id='done${questionNumber}' style='display: block' >Are you done</button>`);
+        formContent.insertAdjacentHTML(`beforeend`,`<br><input type="number" style='margin: 2%; border: 2px solid #46accf; border-radius: 10px;' name='q${questionNumber}' placeholder="Number"><button id='done${questionNumber}' style='display: block' class='btn btn-danger' >Are you done</button>`);
         document.querySelector(`#done${questionNumber}`).addEventListener(`click`, ()=>{
         addQues.style.display = `none`;
         plusSign.style.display = `none`;
         document.querySelector(`#done${questionNumber}`).style.display = `none`;
-        formContent.insertAdjacentHTML(`beforeend`, `<button type='submit' id='subbtnfinallocal' style='display: block'>You sure</button>`);
+        formContent.insertAdjacentHTML(`beforeend`, `<button type='submit' id='subbtnfinallocal' style='display: block' class='btn btn-danger' >You sure</button>`);
         document.querySelector(`#subbtnfinallocal`).addEventListener('click', ()=>{
         request.send(`data=${formContent.innerHTML}&questionno=${questionNumber}&databasename=form<%=user[0].id%><%=user[0].forms%>&title=${titleIn.value}&description=${descriptionIn.value}`);
-        formContent.insertAdjacentHTML('afterend', `<h1>The Url is /<%=user[0].id%>/<%=user[0].forms%>/form</h1>`);
+        formContent.insertAdjacentHTML('afterend', `<h1  style='color: #46accf;'>The Url is localhost:3000/<%=user[0].id%>/<%=user[0].forms%>/form</h1>`);
     });
         });
         emailFinal.style.display = `none`;
@@ -195,7 +193,7 @@ submitBtn.addEventListener(`click`, ()=>{
     if(valueChoosen==3){
         var optnm='';
         let qreq = document.querySelector(`#qNum${questionNumber}`);
-        rAndD.insertAdjacentHTML(`beforeend`,`<input type='radio' name='q${questionNumber}' value='${radioNm1.value}'><span>${radioNm1.value}</span><br>`); 
+        rAndD.insertAdjacentHTML(`beforeend`,`<input type='radio' style='margin: 2%; border: 2px solid #46accf; border-radius: 10px;' name='q${questionNumber}' value='${radioNm1.value}'><span>${radioNm1.value}</span><br>`); 
         radioIn.style.display = `none`;
         radioNm1.style.display = `none`;
         plusSignRd.style.display = `none`;
@@ -204,17 +202,17 @@ submitBtn.addEventListener(`click`, ()=>{
              document.querySelector(`#radioin${questionNumber}${i}`).style.display = `none`;
              document.querySelector(`#radionm${questionNumber}${i}`).style.display = `none`;
              document.querySelector(`.br${questionNumber}${i}`).style.display = `none`;
-            rAndD.insertAdjacentHTML(`beforeend`, `<input type='radio' name='q${questionNumber}' value='${optnm}'><span>${optnm}</span><br>`)
+            rAndD.insertAdjacentHTML(`beforeend`, `<input type='radio' style='margin: 2%; border: 2px solid #46accf; border-radius: 10px;' name='q${questionNumber}' value='${optnm}'><span>${optnm}</span><br>`)
         }
-    formContent.insertAdjacentHTML(`beforeend`, `<br>${rAndD.innerHTML}<button id='done${questionNumber}' style='display: block' >Are you done</button>`);
+    formContent.insertAdjacentHTML(`beforeend`, `<br>${rAndD.innerHTML}<button id='done${questionNumber}' style='display: block'  class='btn btn-danger'>Are you done</button>`);
     document.querySelector(`#done${questionNumber}`).addEventListener(`click`, ()=>{
     addQues.style.display = `none`;
     plusSign.style.display = `none`;
     document.querySelector(`#done${questionNumber}`).style.display = `none`;
-    formContent.insertAdjacentHTML(`beforeend`, `<button type='submit' id='subbtnfinallocal' style='display: block'>You Sure</button>`);
+    formContent.insertAdjacentHTML(`beforeend`, `<button type='submit' id='subbtnfinallocal' style='display: block'  class='btn btn-danger'>You Sure</button>`);
     document.querySelector(`#subbtnfinallocal`).addEventListener('click', ()=>{
     request.send(`data=${formContent.innerHTML}&questionno=${questionNumber}&databasename=form<%=user[0].id%><%=user[0].forms%>&title=${titleIn.value}&description=${descriptionIn.value}`);
-    formContent.insertAdjacentHTML('afterend', `<h1>The Url is /<%=user[0].id%>/<%=user[0].forms%>/form</h1>`);
+    formContent.insertAdjacentHTML('afterend', `<h1  style='color: #46accf;'>The Url is localhost:3000/<%=user[0].id%>/<%=user[0].forms%>/form</h1>`);
     });
    });
     rAndD.innerHTML = '';
@@ -227,7 +225,7 @@ submitBtn.addEventListener(`click`, ()=>{
     if(valueChoosen==4){
         var optnm
         let qreq = document.querySelector(`#qNum${questionNumber}`);
-        rAndD.insertAdjacentHTML(`beforeend`, `<input type='checkbox' name='q${questionNumber}' value='${checkBxNm1.value}'><span>${checkBxNm1.value}</span><br>`)
+        rAndD.insertAdjacentHTML(`beforeend`, `<input type='checkbox' name='q${questionNumber}' style='margin: 2%; border: 2px solid #46accf; border-radius: 10px;' value='${checkBxNm1.value}'><span>${checkBxNm1.value}</span><br>`)
         checkBxIn.style.display = `none`;
         checkBxNm1.style.display = `none`;
         plusSignCh.style.display = `none`;
@@ -236,17 +234,17 @@ submitBtn.addEventListener(`click`, ()=>{
              document.querySelector(`#checkbxin${questionNumber}${j}`).style.display = `none`;
              document.querySelector(`#checkbxnm${questionNumber}${j}`).style.display = `none`;
              document.querySelector(`.br${questionNumber}${j}`).style.display = `none`;
-            rAndD.insertAdjacentHTML(`beforeend`, `<input type='checkbox' name='q${questionNumber}' value='${optnm}'><span>${optnm}</span><br>`)
+            rAndD.insertAdjacentHTML(`beforeend`, `<input type='checkbox' name='q${questionNumber}' style='margin: 2%; border: 2px solid #46accf; border-radius: 10px;' value='${optnm}'><span>${optnm}</span><br>`)
         }
-    formContent.insertAdjacentHTML(`beforeend`, `<br>${rAndD.innerHTML}<button id='done${questionNumber}' style='display: block' >Are you done</button>`);
+    formContent.insertAdjacentHTML(`beforeend`, `<br>${rAndD.innerHTML}<button id='done${questionNumber}' style='display: block' class='btn btn-danger' >Are you done</button>`);
     document.querySelector(`#done${questionNumber}`).addEventListener(`click`, ()=>{
     addQues.style.display = `none`;
     plusSign.style.display = `none`;
     document.querySelector(`#done${questionNumber}`).style.display = `none`;
-    formContent.insertAdjacentHTML(`beforeend`, `<button type='submit' id='subbtnfinallocal' style='display: block'>You sure</button>`);
+    formContent.insertAdjacentHTML(`beforeend`, `<button type='submit' id='subbtnfinallocal' style='display: block'  class='btn btn-danger' >You sure</button>`);
     document.querySelector(`#subbtnfinallocal`).addEventListener('click', ()=>{
     request.send(`data=${formContent.innerHTML}&questionno=${questionNumber}&databasename=form<%=user[0].id%><%=user[0].forms%>&title=${titleIn.value}&description=${descriptionIn.value}`);
-    formContent.insertAdjacentHTML('afterend', `<h1>The Url is /<%=user[0].id%>/<%=user[0].forms%>/form</h1>`);
+    formContent.insertAdjacentHTML('afterend', `<h1 style='color: #46accf;'>The Url is localhost:3000/<%=user[0].id%>/<%=user[0].forms%>/form</h1>`);
     });
     });
     rAndD.innerHTML = '';
@@ -260,12 +258,12 @@ submitBtn.addEventListener(`click`, ()=>{
 plusSign.addEventListener(`click`, ()=>{
 document.querySelector(`#done${questionNumber}`).style.display = `none`;
 questionNumber+=1;
-formContent.insertAdjacentHTML(`beforeend`, `<br><span class='numhead'>${questionNumber}</span><input type='text' id='qnum${questionNumber}'>`);
+formContent.insertAdjacentHTML(`beforeend`, `<br><span class='numhead'>${questionNumber}</span><input type='text' style='margin: 2%; border: 2px solid #46accf; border-radius: 10px;' id='qnum${questionNumber}'>`);
 this.qDom = document.querySelector(`#qnum${questionNumber}`);
 qDom.addEventListener(`keydown`, (event)=>{
     if(event.which==13)
 {
-    formContent.insertAdjacentHTML(`beforeend`, `<span id='qnum${questionNumber}p'>${qDom.value}</span>`);
+    formContent.insertAdjacentHTML(`beforeend`, `<span style='margin-top: 5%; margin-left: 2%; display: inline-block;' id='qnum${questionNumber}p'>${qDom.value}</span>`);
     qDom.style.display = `none`;
     formContent.style.display = `none`;
     quesBx.style.display = `block`;
@@ -276,7 +274,7 @@ qDom.addEventListener(`keydown`, (event)=>{
 qNum1.addEventListener(`keydown`, (event)=>{
 if(event.which==13)
 {
-   formContent.insertAdjacentHTML(`beforeend`, `<span id='qnum${questionNumber}p'>${qNum1.value}</span>`);
+   formContent.insertAdjacentHTML(`beforeend`, `<span style='margin-top: 5%; margin-left: 2%; display: inline-block;' id='qnum${questionNumber}p'>${qNum1.value}</span>`);
     qNum1.style.display = `none`;
     formContent.style.display = `none`;
     quesBx.style.display = `block`;

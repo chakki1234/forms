@@ -1,12 +1,18 @@
-<% include ./partials/header.ejs %>
+<% include ./partials/headernav.ejs %>
 
 <%if(result.length==0){%>
-    <h1>Nothing to display</h1>
+    <div style="margin: 5% 20%; background-color: #ff7f78; height: 5%; padding: 0.6%;text-align: center;border: 2px solid black; border-radius: 15px;">
+    <p>Nothing to display</p>
+   </div>
 <%} else {%>
+    <div style="margin: 5% 20% 3.5%; background-color: #ff7f78; height: 5%; padding: 0.6%;text-align: center;border: 2px solid black; border-radius: 15px;">
+        <p>Select the form whose response you would like to view</p>
+    </div>
 <% for( i=0;i<result.length;++i) { %>
-<a href="finalres/<%=result[i].databasenm%>/<%=result[i].qno%>/<%=result[i].fno%>"><%=result[i].title%></a>      
+    <div style="margin: 1.5% 20%; background-color: #faf378; height: 5%; padding: 0.6%;text-align: center;border: 2px solid black; border-radius: 15px;">
+         <a href="finalres/<%=result[i].databasenm%>/<%=result[i].qno%>/<%=result[i].fno%>">Title: <%=result[i].title%></a>      
+     </div>  
 <% } %>   
 <% } %>
-<a href="/dashboard">dashboard</a>
-<a href="/logout">logout</a>
+
 <% include ./partials/footer.ejs %>

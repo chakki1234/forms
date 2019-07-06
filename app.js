@@ -57,7 +57,9 @@ let entity = {
 connection.query(`INSERT INTO demo4 SET ?`, entity, (err)=>{
 if(err){
  if(err.errno==1062)
-     res.send("user already exsist");
+     res.send(`<div style="margin: 5% 20%; background-color: #ff7f78; height: 5%; padding: 0.6%;text-align: center;border: 2px solid black; border-radius: 15px;">
+     <p>user already exsist</p>
+    </div>`);
 } else
     {   
          req.session.email = req.body.email; 
@@ -75,7 +77,9 @@ res.render(`loginpg.ejs`, { title: title });
 app.post(`/login`, (req, res)=>{
 connection.query(`SELECT * FROM demo4 WHERE email = "${req.body.email}" `, (err,result)=>{
 if(result.length==0)
-res.send(`Are u  sure that you are a member`);
+res.send(`<div style="margin: 5% 20%; background-color: #ff7f78; height: 5%; padding: 0.6%;text-align: center;border: 2px solid black; border-radius: 15px;">
+<p>Are u  sure that you are a member</p>
+</div>`);
 else{
 if(bcrypt.compareSync(req.body.password, result[0].password))
 {
@@ -128,7 +132,6 @@ let qury = `CREATE TABLE ${req.body.databasename}(`;
          else
          qury+=`)`;
         }
-// console.log(qury);
 connection.query(qury, (err)=>{
     if(err)
     console.log(err);
@@ -147,7 +150,9 @@ res.render(`mntemp.ejs`, { title: title, result: result });
 
 app.post(`/postformres/:dbnm`, (req, res)=>{
     connection.query(`INSERT INTO ${req.params.dbnm} SET ?`, req.body);
-    res.send('got it');
+    res.send(`<div style="margin: 5% 20%; background-color: #ff7f78; height: 5%; padding: 0.6%;text-align: center;border: 2px solid black; border-radius: 15px;">
+    <p>Thanks for your response</p>
+   </div>`);
 });
 
 app.get(`/view`, loggedin, (req, res)=>{
