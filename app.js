@@ -37,7 +37,6 @@ app.get("/", (req, res)=>{
         //    console.log(err);
         //    });
         // connection.query(`CREATE TABLE demo5( userid INT, email VARCHAR(255), fno INT, fcontent TEXT , qno INT, databasenm VARCHAR(255), title VARCHAR(255), description VARCHAR(255))`);
-        // connection.query(`CREATE TABLE demo6()`)
         // connection.query(`DELETE FROM demo5`);
         let title = `Signup`;
         res.render(`Signuppg.ejs`, { title: title });
@@ -140,7 +139,6 @@ connection.query(qury, (err)=>{
 });
 });
 
-// view form
 app.get(`/:id/:forms/form`, (req, res)=>{
 let title = `formpg`;
 connection.query(`SELECT * FROM demo5 WHERE userid = ${req.params.id} and fno = ${req.params.forms}`,(err, result)=>{
