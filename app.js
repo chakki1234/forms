@@ -162,7 +162,7 @@ res.render(`viewres.ejs`, { title: title, result: result });
 });
 });
 
-app.get(`/finalres/:dbnm/:qno/:fno`, (req, res)=>{
+app.get(`/finalres/:dbnm/:qno/:fno`, loggedin, (req, res)=>{
 connection.query(`SELECT * FROM ${req.params.dbnm}`, (err, result)=>{
 connection.query(`SELECT fcontent FROM demo5 WHERE email = '${req.session.email}' and fno = ${req.params.fno}`,(err, content)=>{
 let title = `response`;

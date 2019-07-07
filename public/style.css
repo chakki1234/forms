@@ -99,3 +99,65 @@ background-color: #f5f1f0;
     border: 2px solid black;
     border-radius: 10px;
 }
+
+#dashhd{
+    font-size: 4rem;
+}
+
+#dashcnt{
+    font-size: 2rem;
+}
+
+#formbx{
+    width: 50%; margin: 2% auto; border: 3px solid black ; padding: 5%; border-radius: 10px; background-color: #e3f2fd;
+}
+
+@media screen and (max-width: 1500px) {
+    #dashimg{
+        height: 38%;
+    }
+}
+
+@media screen and (max-width: 870px) {
+    #dashcnt{
+        display: none;
+    }
+    #suhead{
+        font-size: 1.5rem;
+    }
+    #submitbtnsiup{
+        padding-left: 5px;
+    }
+}
+
+@media screen and (max-height: 773px){
+    #suhead{
+        font-size: 2rem;
+    }
+    #dashcnt{
+        display: none;
+    }
+     
+}
+
+@media screen and (max-height: 669px) {
+    #suhead{
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-height: 522px) {
+    #formbx{
+        height: 330px;
+    }
+}
+
+@media screen and (max-width: 636px) {
+    #dashhd{
+        font-size: 3.5rem;
+    }
+
+    #submitbtnsiup{
+        font-size: 0.5rem;
+    }
+}
